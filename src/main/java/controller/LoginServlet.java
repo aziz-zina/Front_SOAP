@@ -19,20 +19,19 @@ public class LoginServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Retrieve username and password from the login form
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        // Check if the provided credentials are valid (for simplicity, using hardcoded values)
-        if ("admin@gmail.com".equals(username) && "admin123".equals(password)) {
+        if (username.equals("admin") && password.equals("admin")) {
             // Set a session attribute to indicate a successful login
             request.getSession().setAttribute("loggedIn", true);
 
             // Redirect to the BanqueServlet
             response.sendRedirect(request.getContextPath() + "/banqueServlet");
         } else {
-            // If login is unsuccessful, forward back to the login page
-            response.sendRedirect(request.getContextPath() + "/login");
+        	request.setAttribute("loginFailed", true);
+            // Forward back to the login page (preserves attributes)
+            request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         }
     }
 }

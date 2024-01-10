@@ -32,12 +32,24 @@ public interface BanqueService {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "retirer", targetNamespace = "http://service/", className = "service.Retirer")
-    @ResponseWrapper(localName = "retirerResponse", targetNamespace = "http://service/", className = "service.RetirerResponse")
-    @Action(input = "http://service/BanqueService/retirerRequest", output = "http://service/BanqueService/retirerResponse")
-    public double retirer(
+    @RequestWrapper(localName = "conversion", targetNamespace = "http://service/", className = "service.Conversion")
+    @ResponseWrapper(localName = "conversionResponse", targetNamespace = "http://service/", className = "service.ConversionResponse")
+    @Action(input = "http://service/BanqueService/conversionRequest", output = "http://service/BanqueService/conversionResponse")
+    public double conversion(
         @WebParam(name = "arg0", targetNamespace = "")
         double arg0);
+
+    /**
+     * 
+     * @return
+     *     returns double
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getCurrentSolde", targetNamespace = "http://service/", className = "service.GetCurrentSolde")
+    @ResponseWrapper(localName = "getCurrentSoldeResponse", targetNamespace = "http://service/", className = "service.GetCurrentSoldeResponse")
+    @Action(input = "http://service/BanqueService/getCurrentSoldeRequest", output = "http://service/BanqueService/getCurrentSoldeResponse")
+    public double getCurrentSolde();
 
     /**
      * 
@@ -47,10 +59,10 @@ public interface BanqueService {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "conversion", targetNamespace = "http://service/", className = "service.Conversion")
-    @ResponseWrapper(localName = "conversionResponse", targetNamespace = "http://service/", className = "service.ConversionResponse")
-    @Action(input = "http://service/BanqueService/conversionRequest", output = "http://service/BanqueService/conversionResponse")
-    public double conversion(
+    @RequestWrapper(localName = "retirer", targetNamespace = "http://service/", className = "service.Retirer")
+    @ResponseWrapper(localName = "retirerResponse", targetNamespace = "http://service/", className = "service.RetirerResponse")
+    @Action(input = "http://service/BanqueService/retirerRequest", output = "http://service/BanqueService/retirerResponse")
+    public double retirer(
         @WebParam(name = "arg0", targetNamespace = "")
         double arg0);
 
@@ -68,17 +80,5 @@ public interface BanqueService {
     public double verser(
         @WebParam(name = "arg0", targetNamespace = "")
         double arg0);
-
-    /**
-     * 
-     * @return
-     *     returns double
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getCurrentSolde", targetNamespace = "http://service/", className = "service.GetCurrentSolde")
-    @ResponseWrapper(localName = "getCurrentSoldeResponse", targetNamespace = "http://service/", className = "service.GetCurrentSoldeResponse")
-    @Action(input = "http://service/BanqueService/getCurrentSoldeRequest", output = "http://service/BanqueService/getCurrentSoldeResponse")
-    public double getCurrentSolde();
 
 }

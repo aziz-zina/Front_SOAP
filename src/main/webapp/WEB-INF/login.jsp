@@ -27,18 +27,25 @@
             <h2 class="card-title">Banque Service Login</h2>
         </div>
         <div class="card-body">
-            <form action='login' method='post'>
-                <div class="form-group">
-                    <label for='username'>Username:</label>
-                    <input type='text' name='username' class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for='password'>Password:</label>
-                    <input type='password' name='password' class="form-control" required>
-                </div>
-                <button type='submit' class="btn btn-primary btn-block">Login</button>
-            </form>
-        </div>
+                <form action='login' method='post'>
+                    <div class="form-group">
+                        <label for='username'>Username:</label>
+                        <input type='text' name='username' class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for='password'>Password:</label>
+                        <input type='password' name='password' class="form-control" required>
+                    </div>
+                    <button type='submit' class="btn btn-primary btn-block">Login</button>
+                </form>
+       </div>
+       <%
+		    if (request.getAttribute("loginFailed") != null) {
+		%>
+		    <p class="text-danger" style="text-align: center;">Invalid username or password.</p>
+		<%
+		    }
+		%>
     </div>
 </div>
 
