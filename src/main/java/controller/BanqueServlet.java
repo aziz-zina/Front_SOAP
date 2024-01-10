@@ -30,6 +30,8 @@ public class BanqueServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Forward the request to the JSP page in the WEB-INF directory
+    	double solde = banqueService.getCurrentSolde();
+    	request.setAttribute("solde", solde);
         request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
     }
     
@@ -42,38 +44,46 @@ public class BanqueServlet extends HttpServlet {
         // Call the web service methods based on the selected operation
         double result = 0;
         String message = null;
-        String destination = "/WEB-INF/result.jsp"; // Default destination
 
         switch (operation) {
             case "conversion":
-                result = banqueService.conversion(amount);
+            	double soldeBefore = amount;
+                result = banqueService.conversion(soldeBefore);
+                double soldeAfter = banqueService.getCurrentSolde();
+
+                // Set the converted amount and the amounts before and after conversion as attributes for JSP display
+                request.setAttribute("convertedAmount", result);
+                request.setAttribute("soldeBefore", soldeBefore);
+                request.setAttribute("soldeAfter", result);
+                request.setAttribute("conversion", true);
                 break;
             case "retirer":
                 double currentSolde = banqueService.getCurrentSolde();
                 if (amount > currentSolde) {
-                    message = "Insufficient balance for withdrawal.";
+                	request.setAttribute("soldeInsuffisant", true);
                 } else {
                     result = banqueService.retirer(amount);
                 }
+                //request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
                 break;
             case "verser":
                 result = banqueService.verser(amount);
-                break;
-            case "getCurrentSolde":
-                result = banqueService.getCurrentSolde();
+                //request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
                 break;
             default:
                 message = "Invalid operation selected.";
-        }
+        }     
 
         // Set attributes to be used in the JSP page
         request.setAttribute("result", result);
         if (message != null) {
             request.setAttribute("message", message);
         }
-
-        //Forward the request to the JSP page in the WEB-INF directory
-        request.getRequestDispatcher("/WEB-INF/result.jsp").forward(request, response);
+        
+     // Forward the request to the JSP page in the WEB-INF directory
+        double solde = banqueService.getCurrentSolde();
+        request.setAttribute("solde", solde);
+        request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
     }
 
 }

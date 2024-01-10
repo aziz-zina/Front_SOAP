@@ -15,13 +15,16 @@
         }
         .container {
             max-width: 600px;
-            margin-top: 50px;
+        }
+        .container2{
+        	margin-top: 180px;
         }
         .card {
             border: none;
             border-radius: 15px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
             background-color: #ffffff;
+            margin-bottom: 20px;
         }
         .card-header {
             border-bottom: none;
@@ -34,6 +37,10 @@
         }
         .card-body {
             padding: 40px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #333;
+            line-height: 1.4;
         }
         .form-group {
             margin-bottom: 20px;
@@ -61,38 +68,64 @@
         .logout-link:hover {
             text-decoration: underline;
         }
+        .danger{
+        	margin-top: 20px;
+        	margin-bottom: -30px;
+        }
     </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Banque Service</a>
+<nav class="navbar navbar-dark bg-primary">
+    <a class="navbar-brand" href="banqueServlet">Banque Service</a>
     <a href="login" class="logout-link">Logout</a>
 </nav>
 
 <div class="container mt-4">
-    <div class="card">
-        <div class="card-header">
-            <h2 class="card-title mb-0">Banque Service Interface</h2>
-        </div>
-        <div class="card-body">
-            <form action='banqueServlet' method='post'>
-                <div class="form-group">
-                    <label for='amount'>Amount:</label>
-                    <input type='text' name='amount' class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for='operation'>Operation:</label>
-                    <select name="operation" class="form-control">
-                        <option value="conversion">Conversion</option>
-                        <option value="retirer">Retirer</option>
-                        <option value="verser">Verser</option>
-                        <option value="getCurrentSolde">Get Current Solde</option>
-                    </select>
-                </div>
-                <button type='submit' class="btn btn-primary btn-block">Submit</button>
-            </form>
-        </div>
+    <div class="container2">
+    	<div class="card">
+	        <div class="card-body">
+	            Votre Solde est: ${solde}
+	            <br>
+	        </div>
+	    </div>
+	    <div class="card">
+	        <div class="card-body">
+	            <form action='banqueServlet' method='post'>
+	                <div class="form-group">
+	                    <label for='amount'>Amount:</label>
+	                    <input type='text' name='amount' class="form-control">
+	                </div>
+	                <div class="form-group">
+	                    <label for='operation'>Operation:</label>
+	                    <select name="operation" class="form-control">
+	                        <option value="conversion">Conversion</option>
+	                        <option value="retirer">Retirer</option>
+	                        <option value="verser">Verser</option>
+	                    </select>
+	                </div>
+	                <button type='submit' class="btn btn-primary btn-block">Submit</button>
+	                <%
+					    if (request.getAttribute("soldeInsuffisant") != null) {
+					%>
+					    <p class="text-danger danger" style="text-align: center;">Withdrawal amount exceeds your balance.</p>
+					<%
+					    }
+					%>
+					<%
+					    if (request.getAttribute("conversion") != null) {
+					%>
+					    <p class="text-danger danger" style="text-align: center;">
+					    	The amount in Euro: ${soldeBefore} €;
+					    	The amount in Dinar: ${soldeAfter} TND 
+					    </p>
+					<%
+					    }
+					%>
+	            </form>
+	            <br>
+	        </div>
+	    </div>
     </div>
 </div>
 
