@@ -13,24 +13,19 @@ public class LoginServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Render the login JSP file
         request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username");
+        String login = request.getParameter("username");
         String password = request.getParameter("password");
 
-        if (username.equals("admin") && password.equals("admin")) {
-            // Set a session attribute to indicate a successful login
+        if (login.equals("admin") && password.equals("admin")) {
             request.getSession().setAttribute("loggedIn", true);
-
-            // Redirect to the BanqueServlet
-            response.sendRedirect(request.getContextPath() + "/banqueServlet");
+            response.sendRedirect(request.getContextPath() + "/bank");
         } else {
         	request.setAttribute("loginFailed", true);
-            // Forward back to the login page (preserves attributes)
             request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         }
     }

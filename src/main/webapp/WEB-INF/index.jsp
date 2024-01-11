@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Banque Service Interface</title>
+    <title>Bank</title>
     <!-- Include Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
@@ -76,48 +76,50 @@
 </head>
 <body>
 
-<nav class="navbar navbar-dark bg-primary">
-    <a class="navbar-brand" href="banqueServlet">Virtual Bank</a>
-    <a href="login" class="logout-link">Logout</a>
+<nav class="navbar navbar-dark bg-success">
+    <a class="navbar-brand" href="bank">Virtual Bank 🏦</a>
+    <a href="bank?action=logout" class="logout-link">Logout 🚪</a>
 </nav>
 
 <div class="container mt-4">
     <div class="container2">
     	<div class="card">
 	        <div class="card-body">
-	            Your credit is: ${solde} €
+	            💶Your credit is: <span class="text-success">${solde}€</span>
 	            <br>
 	        </div>
 	    </div>
 	    <div class="card">
 	        <div class="card-body">
-	            <form action='banqueServlet' method='post'>
+	            <form action='bank' method='post'>
 	                <div class="form-group">
-	                    <label for='amount'>Amount:</label>
-	                    <input type='number' name='amount' class="form-control" required>
+	                    <label for='amount' style="color: black;">Amount:</label>
+	                    <input type='number' name='amount' class="form-control" required placeholder="1.00" step="0.1" min="0">
 	                </div>
 	                <div class="form-group">
-	                    <label for='operation'>Operation:</label>
+	                    <label for='operation' style="color: black;">Operation:</label>
 	                    <select name="operation" class="form-control">
 	                    	<option value="verser">Deposit</option>
 	                    	<option value="retirer">Withdraw</option>
 	                        <option value="conversion">Conversion</option>
 	                    </select>
 	                </div>
-	                <button type='submit' class="btn btn-primary btn-block">Submit</button>
+	                <button type='submit' class="btn bg-success btn-block" style="color: white;">Submit</button>
 	                <%
 					    if (request.getAttribute("soldeInsuffisant") != null) {
 					%>
-					    <p class="text-danger danger" style="text-align: center;">Withdrawal amount exceeds your balance.</p>
+					    <p class="text-danger danger" style="text-align: center;">
+					    	Withdrawal amount exceeds your balance. 🚫
+					    </p>
 					<%
 					    }
 					%>
 					<%
 					    if (request.getAttribute("conversion") != null) {
 					%>
-					    <p class="text-success danger" style="text-align: center;">
-					    	The amount in Euro: ${soldeBefore} €;<br>
-					    	The amount in Dinar: ${soldeAfter} TND 
+					    <p class="danger" style="text-align: center;">
+					    	The amount in Euro: <span class="text-success">${soldeBefore}</span> €, <br>
+					    	The amount in Dinar: <span class="text-success">${soldeAfter}</span> TND
 					    </p>
 					<%
 					    }
