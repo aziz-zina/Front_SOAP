@@ -94,7 +94,7 @@
 	            <form action='banqueServlet' method='post'>
 	                <div class="form-group">
 	                    <label for='amount'>Amount:</label>
-	                    <input type='text' name='amount' class="form-control" required>
+	                    <input type='number' name='amount' class="form-control" required>
 	                </div>
 	                <div class="form-group">
 	                    <label for='operation'>Operation:</label>
