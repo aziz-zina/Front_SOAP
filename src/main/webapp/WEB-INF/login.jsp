@@ -17,6 +17,10 @@
             max-width: 400px;
             margin-top: 100px;
         }
+        .card{
+        	border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -24,7 +28,7 @@
 <div class="container">
     <div class="card">
         <div class="card-header bg-primary text-white text-center">
-            <h2 class="card-title">Banque Service Login</h2>
+            <h2 class="card-title">Login</h2>
         </div>
         <div class="card-body">
                 <form action='login' method='post'>

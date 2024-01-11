@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import service.BanqueService;
 import service.BanqueServiceService;
@@ -30,6 +31,15 @@ public class BanqueServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Forward the request to the JSP page in the WEB-INF directory
+    	HttpSession session = request.getSession();
+        Boolean loggedIn = (Boolean) session.getAttribute("loggedIn");
+
+        if (loggedIn == null || !loggedIn) {
+            // User is not logged in, redirect to the login page
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+    	
     	double solde = banqueService.getCurrentSolde();
     	request.setAttribute("solde", solde);
         request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);

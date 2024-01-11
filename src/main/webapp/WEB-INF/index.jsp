@@ -17,7 +17,7 @@
             max-width: 600px;
         }
         .container2{
-        	margin-top: 180px;
+        	margin-top: 100px;
         }
         .card {
             border: none;
@@ -77,7 +77,7 @@
 <body>
 
 <nav class="navbar navbar-dark bg-primary">
-    <a class="navbar-brand" href="banqueServlet">Banque Service</a>
+    <a class="navbar-brand" href="banqueServlet">Virtual Bank</a>
     <a href="login" class="logout-link">Logout</a>
 </nav>
 
@@ -85,7 +85,7 @@
     <div class="container2">
     	<div class="card">
 	        <div class="card-body">
-	            Votre Solde est: ${solde}
+	            Your credit is: ${solde} €
 	            <br>
 	        </div>
 	    </div>
@@ -94,14 +94,14 @@
 	            <form action='banqueServlet' method='post'>
 	                <div class="form-group">
 	                    <label for='amount'>Amount:</label>
-	                    <input type='text' name='amount' class="form-control">
+	                    <input type='text' name='amount' class="form-control" required>
 	                </div>
 	                <div class="form-group">
 	                    <label for='operation'>Operation:</label>
 	                    <select name="operation" class="form-control">
+	                    	<option value="verser">Deposit</option>
+	                    	<option value="retirer">Withdraw</option>
 	                        <option value="conversion">Conversion</option>
-	                        <option value="retirer">Retirer</option>
-	                        <option value="verser">Verser</option>
 	                    </select>
 	                </div>
 	                <button type='submit' class="btn btn-primary btn-block">Submit</button>
@@ -115,8 +115,8 @@
 					<%
 					    if (request.getAttribute("conversion") != null) {
 					%>
-					    <p class="text-danger danger" style="text-align: center;">
-					    	The amount in Euro: ${soldeBefore} €;
+					    <p class="text-success danger" style="text-align: center;">
+					    	The amount in Euro: ${soldeBefore} €;<br>
 					    	The amount in Dinar: ${soldeAfter} TND 
 					    </p>
 					<%
